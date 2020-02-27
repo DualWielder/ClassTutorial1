@@ -15,34 +15,31 @@ namespace Version_1_C
         private clsWorksList _WorksList;
         private clsArtistList _ArtistList;
 
-        private static frmArtist _ArtistDialog = new frmArtist();
+        private readonly static frmArtist _ArtistDialog = new frmArtist();
+
+        public string Name { get => _Name; set => _Name = value; }
+        public string Speciality { get => _Speciality; set => _Speciality = value; }
+        public string Phone { get => _Phone; set => _Phone = value; }
+        public decimal TotalValue { get => _TotalValue; set => _TotalValue = value; }
+        public clsWorksList WorksList { get => _WorksList; set => _WorksList = value; }
+        public clsArtistList ArtistList { get => _ArtistList; set => _ArtistList = value; }
 
         public clsArtist(clsArtistList prArtistList)
         {
-            _WorksList = new clsWorksList();
-            _ArtistList = prArtistList;
+            WorksList = new clsWorksList();
+            ArtistList = prArtistList;
             EditDetails();
         }
         
         public void EditDetails()
         {
-            _ArtistDialog.SetDetails(_Name, _Speciality, _Phone, _WorksList, _ArtistList);
-            if (_ArtistDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
-            {
-                _ArtistDialog.GetDetails(ref _Name, ref _Speciality, ref _Phone);
-                _TotalValue = _WorksList.GetTotalValue();
-            }
+            _ArtistDialog.SetDetails(this);
+            TotalValue = WorksList.GetTotalValue();
         }
 
-        public string GetKey()
-        {
-            return _Name;
-        }
+       
 
-        public decimal GetWorksValue()
-        {
-            return _TotalValue;
-        }
+       
 
     }
 }
