@@ -15,15 +15,13 @@ namespace Version_1_C
             InitializeComponent();
         }
 
-        private clsArtistList _ArtistList;
         private clsWorksList _WorksList;
-        private byte _SortOrder; // 0 = Name, 1 = Date
         private clsArtist _Artist;
 
         private void UpdateDisplay()
         {
             txtName.Enabled = txtName.Text == "";
-            if (_SortOrder == 0)
+            if (_WorksList.SortOrder == 0)
             {
                 _WorksList.SortByName();
                 rbByName.Checked = true;
@@ -79,7 +77,7 @@ namespace Version_1_C
         public virtual Boolean isValid()
         {
             if (txtName.Enabled && txtName.Text != "")
-                if (_ArtistList.Contains(txtName.Text))
+                if (_Artist.IsDuplicate(txtName.Text))
                 {
                     MessageBox.Show("Artist with that name already exists!");
                     return false;
@@ -102,7 +100,7 @@ namespace Version_1_C
 
         private void rbByDate_CheckedChanged(object sender, EventArgs e)
         {
-            _SortOrder = Convert.ToByte(rbByDate.Checked);
+            _WorksList.SortOrder = Convert.ToByte(rbByDate.Checked);
             UpdateDisplay();
         }
 
@@ -111,7 +109,6 @@ namespace Version_1_C
             txtName.Text = _Artist.Name;
             txtSpeciality.Text = _Artist.Speciality;
             txtPhone.Text = _Artist.Phone;
-            _ArtistList = _Artist.ArtistList;
             _WorksList = _Artist.WorksList;
             UpdateDisplay();
         }
@@ -121,7 +118,7 @@ namespace Version_1_C
             _Artist.Name = txtName.Text;
             _Artist.Speciality = txtName.Text;
             _Artist.Phone = txtSpeciality.Text;
-            _WorksList.SortOrder = _SortOrder;
+            _WorksList.SortOrder = _WorksList.SortOrder;
         }
 
     }
