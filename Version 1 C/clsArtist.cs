@@ -5,6 +5,7 @@ namespace Version_1_C
     [Serializable()] 
     public class clsArtist
     {
+
         private string _Name;
         private string _Speciality;
         private string _Phone;
@@ -43,5 +44,6 @@ namespace Version_1_C
         {
             return _TotalValue;
         }
+
     }
 }
