@@ -16,7 +16,7 @@ namespace Version_1_C
             InitializeComponent();
         }
 
-        public void SetDetails(string prName, DateTime prDate, decimal prValue, float theWidth, float theHeight)
+        public void SetDetails(string prName, DateTime prDate, decimal prValue)
         {
             txtName.Text = prName;
             txtCreation.Text = prDate.ToShortDateString();
