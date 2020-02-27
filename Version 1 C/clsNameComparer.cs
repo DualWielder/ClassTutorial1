@@ -7,10 +7,10 @@ namespace Version_1_C
     {
         public int Compare(Object x, Object y)
         {
-            clsWork workClassX = (clsWork)x;
-            clsWork workClassY = (clsWork)y;
-            string lcNameX = workClassX.GetName();
-            string lcNameY = workClassY.GetName();
+            clsWork lcWorkClassX = (clsWork)x;
+            clsWork lcWorkClassY = (clsWork)y;
+            string lcNameX = lcWorkClassX.GetName();
+            string lcNameY = lcWorkClassY.GetName();
 
             return lcNameX.CompareTo(lcNameY);
         }

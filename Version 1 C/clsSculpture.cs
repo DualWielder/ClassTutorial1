@@ -6,22 +6,22 @@ namespace Version_1_C
     [Serializable()] 
     public class clsSculpture : clsWork
     {
-        private float theWeight;
-        private string theMaterial;
+        private float _Weight;
+        private string _Material;
 
         [NonSerialized()]
-        private static frmSculpture sculpDialog;
+        private static frmSculpture _SculpDialog;
 
         public override void EditDetails()
         {
-            if (sculpDialog == null)
+            if (_SculpDialog == null)
             {
-                sculpDialog = new frmSculpture();
+                _SculpDialog = new frmSculpture();
             }
-            sculpDialog.SetDetails(_Name, theDate, theValue, theWeight, theMaterial);
-            if (sculpDialog.ShowDialog() == DialogResult.OK)
+            _SculpDialog.SetDetails(_Name, _Date, _Value, _Weight, _Material);
+            if (_SculpDialog.ShowDialog() == DialogResult.OK)
             {
-                sculpDialog.GetDetails(ref _Name, ref theDate, ref theValue, ref theWeight, ref theMaterial);
+                _SculpDialog.GetDetails(ref _Name, ref _Date, ref _Value, ref _Weight, ref _Material);
             }
         }
     }
