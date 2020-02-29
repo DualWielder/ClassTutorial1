@@ -5,9 +5,13 @@ namespace Version_1_C
     [Serializable()] 
     public abstract class clsWork
     {
-        protected string _Name;
-        protected DateTime _Date = DateTime.Now;
-        protected decimal _Value;
+        private string name;
+        private DateTime date = DateTime.Now;
+        private decimal value;
+
+        public string Name { get => name; set => name = value; }
+        public DateTime Date { get => date; set => date = value; }
+        public decimal Value { get => value; set => this.value = value; }
 
         public clsWork()
         {
@@ -28,7 +32,7 @@ namespace Version_1_C
 
                  switch (char.ToUpper(lcReply))
                  {
-                     case 'P': return new clsPainting();
+                     case 'P': return new clsPhotograph();
                      case 'S': return new clsSculpture();
                      case 'H': return new clsPhotograph();
                      default: return null;
@@ -43,22 +47,7 @@ namespace Version_1_C
 
         public override string ToString()
         {
-            return _Name + "\t" + _Date.ToShortDateString();  
-        }
-        
-        public string GetName()
-        {
-            return _Name;
-        }
-
-        public DateTime GetDate()
-        {
-            return _Date;
-        }
-
-        public decimal GetValue()
-        {
-            return _Value;
+            return Name + "\t" + Date.ToShortDateString();
         }
     }
 }

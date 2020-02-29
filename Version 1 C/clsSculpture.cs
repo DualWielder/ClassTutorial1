@@ -12,17 +12,16 @@ namespace Version_1_C
         [NonSerialized()]
         private static frmSculpture _SculpDialog;
 
+        public float Weight { get => _Weight; set => _Weight = value; }
+        public string Material { get => _Material; set => _Material = value; }
+
         public override void EditDetails()
         {
             if (_SculpDialog == null)
             {
                 _SculpDialog = new frmSculpture();
             }
-            _SculpDialog.SetDetails(_Name, _Date, _Value, _Weight, _Material);
-            if (_SculpDialog.ShowDialog() == DialogResult.OK)
-            {
-                _SculpDialog.GetDetails(ref _Name, ref _Date, ref _Value, ref _Weight, ref _Material);
-            }
+            _SculpDialog.SetDetails(this);
         }
     }
 }

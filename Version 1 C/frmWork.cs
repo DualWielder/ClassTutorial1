@@ -10,31 +10,25 @@ namespace Version_1_C
 {
     public partial class frmWork : Form
     {
+        protected clsWork _Work;
 
         public frmWork()
         {
             InitializeComponent();
         }
 
-        public void SetDetails(string prName, DateTime prDate, decimal prValue)
+        public void SetDetails(clsWork prWork)
         {
-            txtName.Text = prName;
-            txtCreation.Text = prDate.ToShortDateString();
-            txtValue.Text = Convert.ToString(prValue);
-        }
-
-        public void GetDetails(ref string prName, ref DateTime prDate, ref decimal prValue)
-        {
-            prName = txtName.Text;
-            prDate = Convert.ToDateTime(txtCreation.Text);
-            prValue = Convert.ToDecimal(txtValue.Text);
+            _Work = prWork;
+            updateForm();
+            ShowDialog();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (isValid() == true)
+            if (isValid())
             {
-                DialogResult = DialogResult.OK;
+                pushData();
                 Close();
             }
         }
@@ -48,6 +42,20 @@ namespace Version_1_C
         {
             return true;
         }
-    
+
+        protected virtual void updateForm()
+        {
+            txtName.Text = _Work.Name;
+            txtCreation.Text = _Work.Date.ToShortDateString();
+            txtValue.Text = _Work.Value.ToString();
+        }
+
+        protected virtual void pushData()
+        {
+            _Work.Name = txtName.Text;
+            _Work.Date = DateTime.Parse(txtCreation.Text);
+            _Work.Value = decimal.Parse(txtValue.Text);
+        }
+
     }
 }
