@@ -1,9 +1,4 @@
 using System;
-//using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Version_1_C
@@ -45,17 +40,9 @@ namespace Version_1_C
             ShowDialog();
         }
 
-        //public void GetDetails(ref string prName, ref string prSpeciality, ref string prPhone)
-        //{
-        //    prName = txtName.Text;
-        //    prSpeciality = txtSpeciality.Text;
-        //    prPhone = txtPhone.Text;
-        //    _WorksList.SortOrder = _SortOrder;
-        //}
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            _WorksList.DeleteWork(lstWorks.SelectedIndex);
+            DeleteWork(lstWorks.SelectedIndex);
             UpdateDisplay();
         }
 
@@ -74,7 +61,7 @@ namespace Version_1_C
             }
         }
 
-        public virtual Boolean isValid()
+        public virtual bool isValid()
         {
             if (txtName.Enabled && txtName.Text != "")
                 if (_Artist.IsDuplicate(txtName.Text))
@@ -83,7 +70,11 @@ namespace Version_1_C
                     return false;
                 }
                 else
+                {
+                    MessageBox.Show("New Artist Added!");
                     return true;
+                }
+                    
             else
                 return true;
         }
@@ -93,7 +84,7 @@ namespace Version_1_C
             int lcIndex = lstWorks.SelectedIndex;
             if (lcIndex >= 0)
             {
-                _WorksList.EditWork(lcIndex);
+                EditWork(lcIndex);
                 UpdateDisplay();
             }
         }
@@ -119,6 +110,29 @@ namespace Version_1_C
             _Artist.Speciality = txtName.Text;
             _Artist.Phone = txtSpeciality.Text;
             _WorksList.SortOrder = _WorksList.SortOrder;
+        }
+
+        public void DeleteWork(int prIndex)
+        {
+            if (prIndex >= 0 && prIndex < _WorksList.Count)
+            {
+                if (MessageBox.Show("Are you sure?", "Deleting work", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _WorksList.DeleteWork(prIndex);
+                }
+            }
+        }
+
+        public void EditWork(int prIndex)
+        {
+            if (prIndex >= 0 && prIndex < _WorksList.Count)
+            {
+                _WorksList.EditWork(prIndex);
+            }
+            else
+            {
+                MessageBox.Show("Sorry no work selected #" + Convert.ToString(prIndex));
+            }
         }
 
     }

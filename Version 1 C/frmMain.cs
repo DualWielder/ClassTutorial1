@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Version_1_C
@@ -32,7 +27,14 @@ namespace Version_1_C
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _ArtistList.NewArtist();
+            try
+            {
+                _ArtistList.NewArtist();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Duplicate Key!");
+            }
             UpdateDisplay();
         }
 
@@ -43,14 +45,21 @@ namespace Version_1_C
             lcKey = Convert.ToString(lstArtists.SelectedItem);
             if (lcKey != null)
             {
-                _ArtistList.EditArtist(lcKey);
+                EditArtist(lcKey);
                 UpdateDisplay();
             }
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
-            _ArtistList.Save();
+            try
+            {
+                _ArtistList.Save();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "File Save Error");
+            }
             Close();
         }
 
@@ -69,8 +78,26 @@ namespace Version_1_C
 
        private void frmMain_Load(object sender, EventArgs e)
         {
-            _ArtistList = clsArtistList.Retrieve();
+            try
+            {
+                _ArtistList = clsArtistList.Retrieve();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "File Retrieve Error");
+            }
             UpdateDisplay();
+        }
+
+        public void EditArtist(string prKey)
+        {
+            clsArtist lcArtist;
+            lcArtist = _ArtistList[prKey];
+
+            if (lcArtist != null)
+                _ArtistList.EditArtist(lcArtist);
+            else
+                MessageBox.Show("Sorry no artist by this name");
         }
     }
 }

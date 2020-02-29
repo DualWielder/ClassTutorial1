@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+
 
 namespace Version_1_C
 {
@@ -10,31 +10,19 @@ namespace Version_1_C
     {
         private const string _FileName = "gallery.xml";
 
-        public void EditArtist(string prKey)
+        public void EditArtist(clsArtist prArtist)
         {
-            clsArtist lcArtist;
-            lcArtist = this[prKey];
-            if (lcArtist != null)
-                lcArtist.EditDetails();
-            else
-                MessageBox.Show("Sorry no artist by this name");
+            prArtist.EditDetails();
         }
        
         public void NewArtist()
         {
             clsArtist lcArtist = new clsArtist(this);
-            try
+            if (lcArtist.Name != "")
             {
-                if (lcArtist.Name != "")
-                {
-                    Add(lcArtist.Name, lcArtist);
-                    MessageBox.Show("Artist added!");
-                }
+                Add(lcArtist.Name, lcArtist);
             }
-            catch (Exception)
-            {
-                MessageBox.Show("Duplicate Key!");
-            }
+
         }
         
         public decimal GetTotalValue()
@@ -58,10 +46,7 @@ namespace Version_1_C
                 lcFormatter.Serialize(lcFileStream, this);
                 lcFileStream.Close();
             }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "File Save Error");
-            }
+            catch { }
         }
 
         public static clsArtistList Retrieve()
@@ -78,12 +63,7 @@ namespace Version_1_C
                 lcFileStream.Close();
             }
 
-            catch (Exception e)
-            {
-                lcArtistList = new clsArtistList();
-                MessageBox.Show(e.Message, "File Retrieve Error");
-
-            }
+            catch { }
 
             return lcArtistList;
         }
