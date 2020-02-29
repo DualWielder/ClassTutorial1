@@ -1,18 +1,19 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Version_1_C
 {
     [Serializable()] 
-    public class clsArtistList : SortedList
+    public class clsArtistList : SortedList<string, clsArtist>
+
     {
         private const string _FileName = "gallery.xml";
 
         public void EditArtist(string prKey)
         {
             clsArtist lcArtist;
-            lcArtist = (clsArtist)this[prKey];
+            lcArtist = this[prKey];
             if (lcArtist != null)
                 lcArtist.EditDetails();
             else
